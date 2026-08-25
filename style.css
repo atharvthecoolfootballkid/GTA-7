@@ -1,0 +1,937 @@
+/* =========================================================
+   ULTIMATE CITY — MAIN VISUAL SYSTEM
+   ========================================================= */
+
+:root {
+    --hud-bg: rgba(5, 8, 10, 0.72);
+    --hud-border: rgba(255,255,255,0.18);
+    --text: #ffffff;
+    --muted: #aeb7bd;
+    --accent: #dfe8ed;
+    --danger: #ff4545;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #050708;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+body {
+    touch-action: none;
+    color: var(--text);
+}
+
+button {
+    font: inherit;
+}
+
+#game {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* =========================================================
+   LOADING SCREEN
+   ========================================================= */
+
+#loading {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #263238 0%,
+            #111619 38%,
+            #030405 100%
+        );
+
+    transition:
+        opacity .6s ease,
+        visibility .6s ease;
+}
+
+#loading.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-logo {
+    text-align: center;
+
+    font-size:
+        clamp(
+            42px,
+            9vw,
+            105px
+        );
+
+    line-height: .9;
+
+    font-weight: 950;
+
+    letter-spacing:
+        clamp(
+            5px,
+            1vw,
+            15px
+        );
+}
+
+.loading-subtitle {
+    margin-top: 18px;
+
+    color: var(--muted);
+
+    font-size:
+        clamp(
+            8px,
+            1.2vw,
+            12px
+        );
+
+    letter-spacing: 5px;
+
+    text-align: center;
+}
+
+.loading-container {
+    width:
+        min(
+            620px,
+            76vw
+        );
+
+    margin-top: 40px;
+}
+
+.loading-track {
+    height: 5px;
+
+    background: rgba(255,255,255,.12);
+
+    overflow: hidden;
+}
+
+.loading-bar {
+    width: 0%;
+    height: 100%;
+
+    background: #fff;
+
+    transition:
+        width .2s ease;
+}
+
+.loading-status {
+    margin-top: 11px;
+
+    text-align: center;
+
+    color: #8c969b;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   HUD
+   ========================================================= */
+
+#hud {
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    opacity: 1;
+
+    transition:
+        opacity .25s ease;
+}
+
+#hud.hidden {
+    opacity: 0;
+}
+
+/* =========================================================
+   TOP LEFT
+   ========================================================= */
+
+.brand {
+    position: absolute;
+
+    left: 24px;
+    top: 20px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 2px 8px #000;
+}
+
+.version {
+    position: absolute;
+
+    left: 24px;
+    top: 43px;
+
+    font-size: 8px;
+
+    color: #899399;
+
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   CLOCK
+   ========================================================= */
+
+.clock {
+    position: absolute;
+
+    top: 21px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 2px 8px #000;
+}
+
+/* =========================================================
+   MONEY
+   ========================================================= */
+
+.money {
+    position: absolute;
+
+    top: 19px;
+    right: 24px;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 2px 8px #000;
+}
+
+.district {
+    position: absolute;
+
+    top: 45px;
+    right: 24px;
+
+    font-size: 8px;
+
+    color: #a3adb1;
+
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   WANTED LEVEL
+   ========================================================= */
+
+.wanted {
+    position: absolute;
+
+    top: 66px;
+    right: 24px;
+
+    display: flex;
+
+    gap: 3px;
+
+    font-size: 17px;
+
+    text-shadow:
+        0 2px 8px #000;
+}
+
+.wanted-star {
+    opacity: .3;
+
+    transition:
+        opacity .15s ease,
+        transform .15s ease;
+}
+
+.wanted-star.active {
+    opacity: 1;
+
+    transform:
+        scale(1.05);
+}
+
+/* =========================================================
+   OBJECTIVE
+   ========================================================= */
+
+.objective {
+    position: absolute;
+
+    left: 24px;
+    top: 92px;
+
+    width:
+        min(
+            330px,
+            35vw
+        );
+
+    padding:
+        14px 17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.82),
+            rgba(0,0,0,.42)
+        );
+
+    border-left:
+        3px solid #fff;
+
+    backdrop-filter:
+        blur(8px);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.25);
+}
+
+.objective-title {
+    font-size: 8px;
+
+    color: #9da7ac;
+
+    letter-spacing: 3px;
+}
+
+.objective-text {
+    margin-top: 6px;
+
+    font-size: 13px;
+
+    line-height: 18px;
+}
+
+/* =========================================================
+   MINIMAP
+   ========================================================= */
+
+.minimap {
+    position: absolute;
+
+    right: 24px;
+    top: 105px;
+
+    width: 165px;
+    height: 165px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background: rgba(7,10,11,.82);
+
+    border:
+        2px solid
+        rgba(255,255,255,.35);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.45);
+}
+
+.minimap canvas {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+/* =========================================================
+   CROSSHAIR
+   ========================================================= */
+
+.crosshair {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    font-size: 22px;
+
+    opacity: .85;
+}
+
+/* =========================================================
+   HEALTH / STAMINA
+   ========================================================= */
+
+.player-bars {
+    position: absolute;
+
+    left: 24px;
+    bottom: 32px;
+
+    width: 255px;
+}
+
+.bar {
+    width: 100%;
+    height: 8px;
+
+    background:
+        rgba(0,0,0,.65);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    overflow: hidden;
+}
+
+.bar-fill {
+    width: 100%;
+    height: 100%;
+
+    transition:
+        width .15s linear;
+}
+
+.health-fill {
+    background: #f0f0f0;
+}
+
+.stamina-bar {
+    width: 78%;
+
+    height: 5px;
+
+    margin-top: 7px;
+}
+
+.stamina-fill {
+    background: #9da7ac;
+}
+
+/* =========================================================
+   WEAPON
+   ========================================================= */
+
+.weapon {
+    position: absolute;
+
+    right: 24px;
+    bottom: 150px;
+
+    text-align: right;
+
+    text-shadow:
+        0 2px 8px #000;
+}
+
+.weapon-name {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #aeb7bb;
+}
+
+.weapon-ammo {
+    margin-top: 3px;
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   VEHICLE
+   ========================================================= */
+
+.vehicle {
+    position: absolute;
+
+    right: 24px;
+    bottom: 28px;
+
+    text-align: right;
+
+    text-shadow:
+        0 2px 8px #000;
+}
+
+.vehicle-name {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #adb6ba;
+}
+
+.vehicle-speed {
+    font-size: 50px;
+
+    font-weight: 900;
+
+    line-height: 45px;
+}
+
+.vehicle-unit {
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #9ba4a8;
+}
+
+/* =========================================================
+   INTERACTION PROMPT
+   ========================================================= */
+
+.prompt {
+    position: absolute;
+
+    left: 50%;
+    bottom: 28px;
+
+    transform:
+        translateX(-50%);
+
+    padding:
+        10px 16px;
+
+    background:
+        rgba(0,0,0,.68);
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+
+    backdrop-filter:
+        blur(7px);
+}
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.notification {
+    position: absolute;
+
+    left: 50%;
+    top: 70%;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    padding:
+        12px 22px;
+
+    background:
+        rgba(0,0,0,.78);
+
+    border:
+        1px solid
+        rgba(255,255,255,.16);
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    opacity: 0;
+
+    transition:
+        opacity .2s ease;
+
+    backdrop-filter:
+        blur(8px);
+}
+
+.notification.visible {
+    opacity: 1;
+}
+
+/* =========================================================
+   DAMAGE VIGNETTE
+   ========================================================= */
+
+.damage {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 150;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+        radial-gradient(
+            circle,
+            transparent 42%,
+            rgba(255,0,0,.38)
+        );
+
+    transition:
+        opacity .12s ease;
+}
+
+.damage.visible {
+    opacity: 1;
+}
+
+/* =========================================================
+   PAUSE SCREEN
+   ========================================================= */
+
+.pause {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    background:
+        rgba(0,0,0,.78);
+
+    backdrop-filter:
+        blur(14px);
+}
+
+.pause.visible {
+    display: flex;
+}
+
+.pause-title {
+    font-size:
+        clamp(
+            42px,
+            9vw,
+            100px
+        );
+
+    font-weight: 950;
+
+    letter-spacing: 12px;
+}
+
+.pause-subtitle {
+    margin-top: 15px;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    color: #8e989d;
+}
+
+/* =========================================================
+   MOBILE CONTROLS
+   ========================================================= */
+
+.mobile-controls {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 300;
+
+    pointer-events: none;
+}
+
+.mobile-button {
+    position: absolute;
+
+    width: 68px;
+    height: 68px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.28);
+
+    background:
+        rgba(0,0,0,.52);
+
+    color: white;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    pointer-events: auto;
+
+    backdrop-filter:
+        blur(8px);
+
+    transition:
+        transform .08s ease,
+        background .08s ease;
+}
+
+.mobile-button:active {
+    transform:
+        scale(.92);
+
+    background:
+        rgba(255,255,255,.2);
+}
+
+/* =========================================================
+   JOYSTICK
+   ========================================================= */
+
+.joystick {
+    position: absolute;
+
+    left: 22px;
+    bottom: 22px;
+
+    width: 145px;
+    height: 145px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid
+        rgba(255,255,255,.2);
+
+    background:
+        rgba(0,0,0,.25);
+
+    pointer-events: auto;
+}
+
+.joystick-knob {
+    position: absolute;
+
+    left: 45px;
+    top: 45px;
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        2px solid
+        rgba(255,255,255,.28);
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   MOBILE BUTTON POSITIONS
+   ========================================================= */
+
+.camera-button {
+    right: 22px;
+    bottom: 230px;
+}
+
+.action-button {
+    right: 22px;
+    bottom: 145px;
+}
+
+.jump-button {
+    right: 105px;
+    bottom: 145px;
+}
+
+.enter-button {
+    right: 105px;
+    bottom: 62px;
+}
+
+.run-button {
+    right: 22px;
+    bottom: 62px;
+}
+
+.brake-button {
+    right: 188px;
+    bottom: 62px;
+}
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .mobile-controls {
+        display: block;
+    }
+
+    .prompt {
+        display: none;
+    }
+
+    .version {
+        display: none;
+    }
+
+    .minimap {
+        width: 125px;
+        height: 125px;
+
+        right: 14px;
+        top: 88px;
+    }
+
+    .objective {
+        left: 14px;
+        top: 78px;
+
+        width: 245px;
+    }
+
+    .player-bars {
+        left: 14px;
+        bottom: 190px;
+
+        width: 190px;
+    }
+
+    .weapon {
+        right: 14px;
+        bottom: 265px;
+    }
+
+    .vehicle {
+        right: 14px;
+        bottom: 25px;
+    }
+
+    .vehicle-speed {
+        font-size: 42px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .brand {
+        left: 14px;
+        top: 14px;
+
+        font-size: 11px;
+
+        letter-spacing: 3px;
+    }
+
+    .clock {
+        top: 15px;
+
+        font-size: 10px;
+    }
+
+    .money {
+        top: 14px;
+        right: 14px;
+
+        font-size: 14px;
+    }
+
+    .district {
+        top: 36px;
+        right: 14px;
+    }
+
+    .wanted {
+        top: 53px;
+        right: 14px;
+    }
+
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+
+}
